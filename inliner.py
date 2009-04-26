@@ -44,7 +44,8 @@ def get_content(from_,expect_binary=False):
     else:
         s = open(from_).read()
         if not expect_binary:
-            return unicode(s)
+            encodings = feedparser._getCharacterEncoding({},s)
+            return unicode(s,encodings[0])
         else:
             return s
 #}}
