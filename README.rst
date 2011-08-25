@@ -66,3 +66,17 @@ and you'll get the following result:
     </html>
 
 Now you can stash it somewhere and do neat stuff with it
+
+
+Tests
+-----
+You can run tests via the usual
+
+::
+
+    python setup.py test
+
+Which will install nose/mock for test runs.
+
+*Note:* Tests are just starting and not all covered. Please submit more if you
+can find an edge case!
