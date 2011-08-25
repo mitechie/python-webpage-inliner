@@ -15,10 +15,11 @@ import mimetypes
 import re
 import sys
 import urllib2
-import urlparse
 
 from BeautifulSoup import BeautifulSoup
 from itertools import chain
+from urlparse import urljoin
+from urlparse import urlparse
 
 
 URL_BLACKLIST = ('getsatisfaction.com',
@@ -51,7 +52,7 @@ def parse_args():
 
 def is_remote(address):
     """Checking for http/https in the url"""
-    return urlparse.urlparse(address)[0] in ('http', 'https')
+    return urlparse(address)[0] in ('http', 'https')
 
 
 def data_encode_image(name, content):
@@ -104,7 +105,7 @@ def get_content(from_, expect_binary=False):
 def resolve_path(base, target):
 #{{
     if True:
-        return urlparse.urljoin(base, target)
+        return urljoin(base, target)
 
     if is_remote(target):
         return target
@@ -140,8 +141,10 @@ def replaceJavascript(base_url, soup):
 def replaceCss(base_url, soup):
 #{{
     for css in soup.findAll('link',
-                            {'rel': 'stylesheet',
-                            'href': re.compile('.+')}):
+                            {
+                                'rel': 'stylesheet',
+                                'href': re.compile('.+')
+                            }):
         try:
             real_css = get_content(resolve_path(base_url, css['href']))
 
@@ -150,6 +153,7 @@ def replaceCss(base_url, soup):
                     path = resolve_path(resolve_path(base_url,
                                                      css['href']),
                                                      result.groups()[0])
+
                     return u'url(%s)' % data_encode_image(path,
                                                           get_content(path,
                                                                       True))
@@ -199,4 +203,4 @@ def main():
     res.close()
 
 if __name__ == '__main__':
-    main(sys.argv[1], sys.argv[2])
+    main()

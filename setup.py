@@ -33,6 +33,8 @@ setup(name='python-webpage-inliner',
     package_dir = {'': 'src'},include_package_data=True,
     zip_safe=False,
     install_requires=install_requires,
+    test_suite='nose.collector',
+    tests_require=['nose', 'mock'],
     entry_points={
         'console_scripts':
             ['python-webpage-inliner=pythonwebpageinliner.inliner:main']
