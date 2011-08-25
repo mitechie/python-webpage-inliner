@@ -24,6 +24,7 @@ from urlparse import urlparse
 
 URL_BLACKLIST = ('getsatisfaction.com',
                  'google-analytics.com',
+                 'google-analyticator',
                 )
 CSS_URL = re.compile(ur'url\((.+)\)')
 
